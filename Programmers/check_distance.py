@@ -33,13 +33,16 @@ def distance_check(pos1: None, pos2: None, room: None):
         if r1 == r2 or c1 == c2:
             return False
 	
-    for i in range(min(r1, r2), max(r1, r2)+1):
-        for j in range(min(c1, c2), max(c1, c2)+1):
-            if ([i, j] == pos1) or ([i, j] == pos2):
-                continue
-            if room[i][j] == 'O':
-                return False
-            
+    if r1 == r2 and room[r1][(c1+c2)//2] != 'X':
+        return False
+    
+    if c1 == c2 and room[(r1+r2)//2][c1] != 'X':
+        return False
+    
+    if r1 != r2 and c1 != c2: #두 사람 사이의 거리 == 2 & 대각선에 위치   
+        if room[r1][c2] != 'X' or room[r2][c1] != 'X':
+            return False
+        
     return True
             
 def room_check(room: list = None):
