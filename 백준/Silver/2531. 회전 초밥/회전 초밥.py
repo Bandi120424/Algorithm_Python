@@ -10,15 +10,13 @@ def init_data():
     return total_dish, dishes_to_eat, coupon_num, belt
 
 
-def find_dish(belt, total_dish, coupon_num):
-    dish_idx = []
-    for i in range(total_dish):
-        if belt[i] == coupon_num:
-            dish_idx.append(i)
-    return dish_idx
+def count_unique_dish(dishes, coupon_num):
+    if coupon_num not in dishes:
+        return len(set(dishes))+1
+    return len(set(dishes))
 
 
-def count_dish(belt, total_dish, dishes_to_eat, coupon_num):  # 연속한 접시들의 초밥 종류를 카운트
+def eat_serial_dishes(belt, total_dish, dishes_to_eat, coupon_num):  # 연속한 접시들의 초밥 종류를 카운트
     max_dish = 0
     for dish_idx in range(total_dish):
         end = dish_idx + dishes_to_eat
@@ -29,17 +27,11 @@ def count_dish(belt, total_dish, dishes_to_eat, coupon_num):  # 연속한 접시
         else:
             dishes = belt[dish_idx: end]
 
-        if coupon_num not in dishes:
-            dish_num = len(set(dishes))+1
-        else:
-            dish_num = len(set(dishes))
+        max_dish = max(max_dish, count_unique_dish(dishes, coupon_num))
 
-        max_dish = max(max_dish, dish_num)
-        # print("max_dish", max_dish)
-        # print(dishes)
     return max_dish
 
 
 if __name__ == "__main__":
     total_dish, dishes_to_eat, coupon_num, belt = init_data()
-    print(count_dish(belt, total_dish, dishes_to_eat, coupon_num))
+    print(eat_serial_dishes(belt, total_dish, dishes_to_eat, coupon_num))
