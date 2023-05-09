@@ -1,20 +1,11 @@
 import sys
 input = sys.stdin.readline
 
+val = input().strip('\n').split('-')
 
-def init_data():
-    expr = input().strip('\n').split('-')
-    return expr
+ans = sum(list(map(int, val[0].split('+'))))
+for i in range(1, len(val)):
+    add_val = sum(list(map(int, val[i].split('+'))))
+    ans -= add_val
 
-
-def bracket_summation(expr):
-    return sum(list(map(int, expr.split('+'))))
-
-
-if __name__ == "__main__":
-    expr = init_data()
-    ans = bracket_summation(expr[0])
-    for i in range(1, len(expr)):
-        ans -= bracket_summation(expr[i])
-
-    print(ans)
+print(ans)
