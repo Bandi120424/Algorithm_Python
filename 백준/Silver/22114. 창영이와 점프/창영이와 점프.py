@@ -1,21 +1,34 @@
 import sys
 input = sys.stdin.readline
 
-total_blocks, step_width = map(int, input().split())
-block_dist = list(map(int, input().split()))
 
-blocks_jump = [0] * total_blocks  # i번째 돌에 도달하기까지 거쳐온 block 수
-blocks_nojump = [0] * total_blocks
+def init_data():
+    total_blocks, step_width = map(int, input().split())
+    block_dist = list(map(int, input().split()))
+    return total_blocks, step_width, block_dist
 
-blocks_jump[0] = 1
-blocks_nojump[0] = 1
 
-for i in range(1, total_blocks):
-    if block_dist[i-1] <= step_width:
-        blocks_nojump[i] = blocks_nojump[i-1]+1
-        blocks_jump[i] = blocks_jump[i-1]+1
-    else:  # 점프 없이는 갈 수 없는 경우
-        blocks_nojump[i] = 1
-        blocks_jump[i] = blocks_nojump[i-1] + 1
+def update_blocks(total_blocks, step_width, block_dist):
 
-print(max(max(blocks_jump), max(blocks_nojump)))
+    jump_to_arrive = [0] * total_blocks
+    nojump_to_arrive = [0] * total_blocks
+
+    jump_to_arrive[0] = 1
+    nojump_to_arrive[0] = 1
+
+    for i in range(1, total_blocks):
+        if block_dist[i-1] <= step_width:
+            jump_to_arrive[i] = jump_to_arrive[i-1]+1
+            nojump_to_arrive[i] = nojump_to_arrive[i-1]+1
+        else:  # 점프 없이는 갈 수 없는 경우
+            nojump_to_arrive[i] = 1  # 해당 block을 시작점으로 하는 경우만 가능
+            jump_to_arrive[i] = nojump_to_arrive[i-1] + 1
+
+    return jump_to_arrive, nojump_to_arrive
+
+
+if __name__ == '__main__':
+    total_blocks, step_width, block_dist = init_data()
+    jump_to_arrive, nojump_to_arrive = update_blocks(
+        total_blocks, step_width, block_dist)
+    print(max(max(jump_to_arrive), max(nojump_to_arrive)))
