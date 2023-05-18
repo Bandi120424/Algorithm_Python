@@ -2,10 +2,12 @@ import sys
 from collections import deque
 input = sys.stdin.readline
 
-# def init_data():
-total_people = int(input())
-relation = [[1 if x == 'Y' else 0 for x in input().strip()]
-            for _ in range(total_people)]
+
+def init_data():
+    total_people = int(input())
+    relation = [[1 if x == 'Y' else 0 for x in input().strip()]
+                for _ in range(total_people)]
+    return total_people, relation
 
 
 def find_connection(relation):
@@ -19,7 +21,7 @@ def find_connection(relation):
     return connection
 
 
-def update_connection(start, connection):
+def update_connection(start, total_people, connection):
     queue = deque()
     queue.append([start, 0])
     visited = [False]*total_people
@@ -39,9 +41,13 @@ def update_connection(start, connection):
     return friend_count
 
 
-max_friend = 0
-connection = find_connection(relation)
-for i in range(total_people):
-    max_friend = max(max_friend, update_connection(i, connection))
+if __name__ == '__main__':
+    total_people, relation = init_data()
 
-print(max_friend)
+    max_friend = 0
+    connection = find_connection(relation)
+    for i in range(total_people):
+        max_friend = max(max_friend, update_connection(
+            i, total_people, connection))
+
+    print(max_friend)
