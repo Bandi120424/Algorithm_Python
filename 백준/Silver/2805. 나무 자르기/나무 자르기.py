@@ -32,5 +32,4 @@ def find_height(total_trees, taken_wood, tree_heights):
 
 if __name__ == '__main__':
     total_trees, taken_wood, tree_heights = init_data()
-    # print(compute_diff(total_trees, taken_wood, tree_heights))
     print(find_height(total_trees, taken_wood, tree_heights))
