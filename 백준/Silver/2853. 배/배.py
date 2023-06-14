@@ -18,14 +18,15 @@ def count_ship(total_big_day, big_days):
             continue
 
         interval = big_days[idx] - big_days[0]
-        tmp = 1
+        boat_flag = False
         for j in range(1, total_big_day):
             if big_days[j] == 0:
                 continue
-            if big_days[j] % interval == 1:
-                tmp += interval
+            if big_days[j] % interval == 1:  # 주기가 나누어 떨어지는 배들 업데이트
+                boat_flag = True
                 big_days[j] = 0
-        if tmp != 1:
+
+        if boat_flag == True:
             ctn += 1
 
     return ctn
