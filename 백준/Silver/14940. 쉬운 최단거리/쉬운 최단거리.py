@@ -1,5 +1,4 @@
 import sys
-import copy
 from collections import deque
 input = sys.stdin.readline
 
@@ -48,16 +47,15 @@ def update_distance(target, height, width, boards):
 
 if __name__ == '__main__':
     height, width, boards, target = init_data()
-    distance_map = copy.deepcopy(boards)
 
-    distance_map[target[0]][target[1]] = 0
+    boards[target[0]][target[1]] = 0
     visited, distance_map = update_distance(
-        target, height, width, distance_map)
+        target, height, width, boards)
 
     for i in range(height):
         for j in range(width):
-            if distance_map[i][j] == 1 and visited[i][j] == False:
+            if boards[i][j] == 1 and visited[i][j] == False:
                 print(-1, end=" ")
             else:
-                print(distance_map[i][j], end=" ")
+                print(boards[i][j], end=" ")
         print()
