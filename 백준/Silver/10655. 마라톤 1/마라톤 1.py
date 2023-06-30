@@ -1,4 +1,5 @@
 import sys
+import math
 input = sys.stdin.readline
 
 
@@ -20,7 +21,7 @@ def min_distance(total_checkpoints, checkpoints):
                      for i in range(1, total_checkpoints)]
     origin_distance = sum(intervals)
 
-    min_dist = origin_distance
+    min_dist = math.inf
     for j in range(1, total_checkpoints-1):
         min_dist = min(min_dist, origin_distance -
                        intervals[j] - intervals[j+1]+manhattan_distance(checkpoints[j+1], checkpoints[j-1]))
