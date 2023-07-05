@@ -1,4 +1,5 @@
 import sys
+import heapq
 input = sys.stdin.readline
 
 
@@ -9,15 +10,16 @@ def init_data():
     return total_visit, visit_info
 
 
-def give_presents(visit_info):
+def give_presents_heap(visit_info):
     present = []
     value = []
     for info in visit_info:
         if info[0] == 0:
-            value.append(present.pop()) if present else value.append(-1)
+            value.append(-heapq.heappop(present)
+                         ) if present else value.append(-1)
             continue
-        present.extend(info[1:])
-        present.sort()
+        for ele in info[1:]:
+            heapq.heappush(present, -ele)
 
     for val in value:
         print(val)
@@ -25,4 +27,4 @@ def give_presents(visit_info):
 
 if __name__ == '__main__':
     total_visit, visit_info = init_data()
-    give_presents(visit_info)
+    give_presents_heap(visit_info)
