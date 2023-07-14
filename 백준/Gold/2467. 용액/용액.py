@@ -33,6 +33,6 @@ def make_solution(total_solution, solutions):
     return pair
 
 
-if __name__ == '__main__':
-    total_solution, solutions = init_data()
-    print(*make_solution(total_solution, solutions))
+
+total_solution, solutions = init_data()
+print(*make_solution(total_solution, solutions))
