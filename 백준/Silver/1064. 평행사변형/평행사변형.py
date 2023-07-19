@@ -31,7 +31,7 @@ def gradient(points):
     if len(grads) != 3:
         return False
 
-    return grads
+    return True
 
 
 def compute_distance(A, B):
@@ -53,12 +53,11 @@ def distance(points):
 
 
 def make_parallelogram(points):
-    grads = gradient(points)
-    dist = distance(points)
 
-    if grads == False:
+    if gradient(points) == False:
         return -1
 
+    dist = distance(points)
     rounds = []
     rounds.append(2*(dist[0]+dist[2]))
     rounds.append(2*(dist[0]+dist[1]))
