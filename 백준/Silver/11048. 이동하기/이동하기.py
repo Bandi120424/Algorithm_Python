@@ -12,14 +12,7 @@ def init_data():
     return height, width, candy_map
 
 
-def in_range(pos, height, width):
-    if 0 <= pos[0] < height and 0 <= pos[1] < width:
-        return True
-    return False
-
-
 def max_candy(height, width, candy_map):
-    MOVES = [[1, 0], [0, 1], [1, 1]]
     candy = [[0]*width for _ in range(height)]
 
     candy[0][0] = candy_map[0][0]
