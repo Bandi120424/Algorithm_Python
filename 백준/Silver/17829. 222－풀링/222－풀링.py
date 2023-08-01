@@ -18,7 +18,7 @@ def find_second_component(numbers):
     return numbers[1]
 
 
-def pooling(pool_size, size, matrix):
+def pooling_patch(pool_size, size, matrix):
     new_matrix = []
     for i in range(size//pool_size):
         row = []
@@ -30,10 +30,13 @@ def pooling(pool_size, size, matrix):
     return new_matrix
 
 
+def pooling(pool_size, size, matrix):
+    new_matrix = pooling_patch(pool_size, size, matrix)
+    while len(new_matrix) > 1:
+        new_matrix = pooling_patch(2, len(new_matrix), new_matrix)
+    return new_matrix[0][0]
+
+
 if __name__ == '__main__':
     size, matrix = init_data()
-    new_matrix = pooling(2, size, matrix)
-    while len(new_matrix) > 1:
-        new_matrix = pooling(2, len(new_matrix), new_matrix)
-
-    print(*new_matrix[0])
+    print(pooling(2, size, matrix))
