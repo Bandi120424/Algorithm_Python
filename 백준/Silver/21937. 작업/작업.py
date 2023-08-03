@@ -26,18 +26,18 @@ def minimum_workload(work_chart=None, target: int = 0) -> int:
     if target == 0:
         raise Exception("The target is wrong")
 
-    visited = [False]*(1+work_chart.num_of_work)
+    visited = [False]*(work_chart.num_of_work+1)
     visited[target] = True
-    chart = work_chart.chart
     stack = [target]
     cnt = 0
+
     while stack:
         node = stack.pop()
-        for next_node in chart[node]:
+        for next_node in work_chart.chart[node]:
             if visited[next_node] == False:
+                stack.append(next_node)
                 visited[next_node] = True
                 cnt += 1
-                stack.append(next_node)
 
     return cnt
 
