@@ -1,6 +1,6 @@
 import sys
 import copy
-from collections import deque
+import heapq
 input = sys.stdin.readline
 
 '''
@@ -9,24 +9,30 @@ input = sys.stdin.readline
 
 '''
 
+
 class cards():
     def __init__(self, num_of_cards: int = 0, card_status=None) -> None:
         self.num_of_cards = num_of_cards
         if card_status == None:
             raise Exception(
-                f"{sys._getframe().f_code.co_name}: There are no cards")
+                f"{self.__class__} {sys._getframe().f_code.co_name}: There are no cards")
+        heapq.heapify(card_status)
         self.card_status = card_status
 
     def final_score(self, new_card_status):
         return sum(new_card_status)
 
     def merge_cards(self, total_actions):
+        if self.card_status == None:
+            raise Exception(
+                f"{self.__class__} {sys._getframe().f_code.co_name}: There are no cards")
+        self.cp_card_status = copy.deepcopy(self.card_status)
         for _ in range(total_actions):
-            self.card_status.sort()
-            merged_num = self.card_status[0] + self.card_status[1]
-            self.card_status[0] = merged_num
-            self.card_status[1] = merged_num
-        return self.final_score(self.card_status)
+            merged_num = heapq.heappop(
+                self.cp_card_status) + heapq.heappop(self.cp_card_status)
+            heapq.heappush(self.cp_card_status, merged_num)
+            heapq.heappush(self.cp_card_status, merged_num)
+        return self.final_score(self.cp_card_status)
 
 
 def init_data():
