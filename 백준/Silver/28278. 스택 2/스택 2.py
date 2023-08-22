@@ -7,23 +7,24 @@ def action(stack=None, command: int = 0, num: int = 0):
         
     if command == 1:
         stack.append(num)
+        return stack
+    
     if command == 2:
-        if len(stack) == 0:
-            print(-1)
-            return stack
-        print(stack.pop())        
+        print(-1) if len(stack) == 0 else print(stack.pop())
+        return stack 
+
     if command == 3:
         print(len(stack))
+        return stack 
+    
     if command == 4:
-        if len(stack) == 0:
-            print(1)
-            return stack
-        print(0)
+        print(1) if len(stack) == 0 else print(0)
+        return stack
+
     if command == 5:
-        if len(stack) == 0:
-            print(-1)
-            return stack
-        print(stack[-1])
+        print(-1) if len(stack) == 0 else print(stack[-1])
+        return stack
+    
     return stack 
 
 if __name__ == "__main__":
