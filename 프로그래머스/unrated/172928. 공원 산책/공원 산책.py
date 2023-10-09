@@ -9,18 +9,13 @@ class Park:
         self.init_pos = [0, 0]
         
     def list2array(self):
-        i, j = 0, 0
-        for row in self.park:
+        for i, row in enumerate(self.park):
             row_arr = []
-            j = 0
-            for c in row:
+            for j, c in enumerate(row):
                 if c == "S":
                     self.init_pos = [i, j]
                 row_arr.append(c)
-                j += 1
-            i += 1
             self.park_arr.append(row_arr)
-    
     
     def in_range(self, pos):
         if 0 <= pos[0] < self.height and 0 <= pos[1] < self.width:
